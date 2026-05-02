@@ -4,7 +4,7 @@ const app = express();
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended:false}));
-app.use(express(JSON));
+app.use(express.json());
 
 app.use('/', require('./router'));
 
