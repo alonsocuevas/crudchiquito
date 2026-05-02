@@ -1,3 +1,5 @@
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
