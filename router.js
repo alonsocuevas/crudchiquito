@@ -1,53 +1,51 @@
 const express = require('express');
 const router = express.Router();
 
-const conexion = require('./database/db');
+const pool = require('./database/db');
 
-router.get('/', (req, res)=>{
-    
-    conexion.query('SELECT * FROM users', (error, results)=>{
-        if(error){
-            throw error;
-        }else{
-            res.render('index', {results:results});
-        }
-    }) 
-})
-
-// ruta para crear registros
-router.get('/create', (req, res)=>{
-    res.render('create');
-})
-
-// RUTA PARA EDITAR LOS REGISTROS
-router.get('/edit/:id', (req,res)=>{
-    const id = req.params.id;
-    conexion.query('SELECT * FROM users WHERE id=?',[id], (error, results)=>{
-        if(error){
-            throw error;
-        }else{
-            res.render('edit', {user:results[0]});
-        }
-    })
-})
-
-
-// RUTA PARA ELIMINAR REGISTRO
-router.get('/delete/:id', (req, res)=>{
-    const id = req.params.id;
-    conexion.query('DELETE FROM users WHERE id = ?', [id], (error, results)=>{
-        if(error){
-            throw error;
-        }else{
-            res.redirect('/');
-        }
-    })
+// LISTAR
+router.get('/', async (req, res)=>{
+    try {
+        const result = await pool.query('SELECT * FROM users');
+        res.render('index', { results: result.rows });
+    } catch (error) {
+        console.log(error);
+        res.send('Error al cargar datos');
+    }
 });
 
+// CREAR
+router.get('/create', (req, res)=>{
+    res.render('create');
+});
+
+// EDITAR
+router.get('/edit/:id', async (req,res)=>{
+    try {
+        const id = req.params.id;
+        const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+        res.render('edit', { user: result.rows[0] });
+    } catch (error) {
+        console.log(error);
+        res.send('Error al cargar registro');
+    }
+});
+
+// ELIMINAR
+router.get('/delete/:id', async (req, res)=>{
+    try {
+        const id = req.params.id;
+        await pool.query('DELETE FROM users WHERE id = $1', [id]);
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        res.send('Error al eliminar');
+    }
+});
 
 const crud = require('./controllers/crud');
-const { Router } = require('express');
+
 router.post('/save', crud.save);
 router.post('/update', crud.update);
 
-module.exports = router;  
+module.exports = router;
