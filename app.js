@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.set('view engine', 'ejs');
 
@@ -8,6 +9,6 @@ app.use(express.json());
 
 app.use('/', require('./router'));
 
-app.listen(5000, ()=>{
-    console.log('Servidor funcionando en http://localhost:5000');
-});  
+app.listen(PORT, '0.0.0.0', ()=>{
+    console.log(`Servidor funcionando en http://localhost:${PORT}`);
+});

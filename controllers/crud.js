@@ -1,26 +1,36 @@
-const conexion = require('../database/db');
+const pool = require('../database/db');
 
-exports.save = (req, res)=>{
-    const user = req.body.user;
-    const rol = req.body.rol;
-    conexion.query('INSERT INTO users SET ?',{user:user, rol:rol}, (error, results)=>{
-        if(error){
-            console.log(error);
-        }else{
-            res.redirect('/');
-        }
-    })
-}
+exports.save = async (req, res)=>{
+    try {
+        const user = req.body.user;
+        const rol = req.body.rol;
 
-exports.update = (req, res)=>{
-    const id = req.body.id;
-    const user = req.body.user;
-    const rol = req.body.rol;
-    conexion.query('UPDATE users SET ? WHERE id = ?', [{user:user, rol:rol}, id], (error, results)=>{
-        if(error){
-            console.log(error);
-        }else{
-            res.redirect('/');
-        }
-    })
-}
+        await pool.query(
+            'INSERT INTO users (username, rol) VALUES ($1, $2)',
+            [user, rol]
+        );
+
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        res.send('Error al guardar');
+    }
+};
+
+exports.update = async (req, res)=>{
+    try {
+        const id = req.body.id;
+        const user = req.body.user;
+        const rol = req.body.rol;
+
+        await pool.query(
+            'UPDATE users SET username = $1, rol = $2 WHERE id = $3',
+            [user, rol, id]
+        );
+
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        res.send('Error al actualizar');
+    }
+};
