@@ -1,5 +1,3 @@
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
-
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,3 +12,11 @@ app.use('/', require('./router'));
 app.listen(PORT, '0.0.0.0', ()=>{
     console.log(`Servidor funcionando en http://localhost:${PORT}`);
 });
+
+
+
+
+
+
+
+Shemagh232
