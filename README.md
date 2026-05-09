@@ -1,217 +1,190 @@
-# CRUD Node.js - Sistema de Gestión de Usuarios
+# 🚀 CRUD de Usuarios — Node.js + PostgreSQL
 
-## 📋 Descripción
+Aplicación CRUD desarrollada con Node.js, Express y PostgreSQL para la gestión de usuarios y roles.
 
-Este es un sistema CRUD (Create, Read, Update, Delete) desarrollado en Node.js que permite gestionar usuarios con sus respectivos roles. La aplicación proporciona una interfaz web intuitiva para realizar operaciones básicas de administración de usuarios.
-
-## 🛠️ Stack Tecnológico
-
-### Backend
-- **Node.js** - Runtime de JavaScript
-- **Express.js** - Framework web para Node.js
-- **MySQL** - Base de datos relacional
-- **EJS** - Motor de plantillas para renderizar vistas HTML
-
-### Frontend
-- **Bootstrap 5.1.3** - Framework CSS para diseño responsivo
-- **Boxicons** - Librería de iconos
-- **HTML5** - Estructura de las páginas
-- **CSS3** - Estilos personalizados
-
-### Herramientas de Desarrollo
-- **Nodemon** - Herramienta para reinicio automático del servidor durante desarrollo
-
-## 🚀 Funcionalidades
-
-- ✅ **Listar usuarios** - Visualización de todos los usuarios registrados en una tabla
-- ✅ **Crear usuario** - Formulario para agregar nuevos usuarios con nombre y rol
-- ✅ **Editar usuario** - Modificación de datos de usuarios existentes
-- ✅ **Eliminar usuario** - Borrado de registros de usuarios
-- ✅ **Gestión de roles** - Asignación de roles (Admin, Data Entry)
-- ✅ **Interfaz responsiva** - Diseño adaptable a diferentes dispositivos
-
-## 📁 Estructura del Proyecto
-
-```
-crudchiquito/
-├── app.js                 # Archivo principal de la aplicación
-├── router.js              # Configuración de rutas
-├── package.json           # Dependencias y scripts del proyecto
-├── package-lock.json      # Lock file de dependencias
-├── controllers/
-│   └── crud.js           # Controladores para operaciones CRUD
-├── database/
-│   └── db.js             # Configuración de conexión a MySQL
-└── views/
-    ├── index.ejs         # Vista principal (listado de usuarios)
-    ├── create.ejs        # Vista para crear usuarios
-    └── edit.ejs          # Vista para editar usuarios
-```
-
-## ⚙️ Instalación
-
-### Prerrequisitos
-- Node.js (versión 14 o superior)
-- MySQL Server
-- npm o yarn
-
-### Pasos de instalación
-
-1. **Clonar el repositorio**
-   ```bash
-   git clone <url-del-repositorio>
-   cd crudchiquito
-   ```
-
-2. **Instalar dependencias**
-   ```bash
-   npm install
-   ```
-
-3. **Configurar la base de datos**
-   - Crear una base de datos MySQL llamada `crud_nodejs_db`
-   - Crear la tabla `users` con la siguiente estructura:
-   ```sql
-   CREATE DATABASE crud_nodejs_db;
-   USE crud_nodejs_db;
-   
-   CREATE TABLE users (
-       id INT AUTO_INCREMENT PRIMARY KEY,
-       user VARCHAR(100) NOT NULL,
-       rol VARCHAR(50) NOT NULL
-   );
-   ```
-
-4. **Configurar conexión a la base de datos**
-   - Editar el archivo `database/db.js` con tus credenciales de MySQL:
-   ```javascript
-   const conexion = mysql.createConnection({
-       host: 'localhost',
-       user: 'tu_usuario',
-       password: 'tu_contraseña',
-       database: 'crud_nodejs_db'
-   });
-   ```
-
-## 🚀 Uso
-
-### Desarrollo
-```bash
-# Iniciar el servidor con nodemon (reinicio automático)
-npm run dev
-
-# O iniciar directamente con Node.js
-node app.js
-```
-
-### Producción
-```bash
-node app.js
-```
-
-La aplicación estará disponible en: `http://localhost:5000`
-
-### Operaciones disponibles
-
-- **GET /** - Lista todos los usuarios
-- **GET /create** - Muestra formulario para crear usuario
-- **POST /save** - Guarda un nuevo usuario
-- **GET /edit/:id** - Muestra formulario para editar usuario
-- **POST /update** - Actualiza un usuario existente
-- **GET /delete/:id** - Elimina un usuario
-
-## 🧪 Pruebas
-
-Actualmente el proyecto no incluye pruebas automatizadas. El script de test en `package.json` está configurado como placeholder.
-
-### Pruebas manuales recomendadas:
-1. Verificar que la aplicación se inicie correctamente
-2. Probar la creación de usuarios
-3. Verificar la edición de usuarios existentes
-4. Confirmar la eliminación de usuarios
-5. Validar la visualización de la lista de usuarios
-
-## 🔧 Configuración
-
-### Variables de entorno
-Para mayor seguridad, se recomienda usar variables de entorno para la configuración de la base de datos:
-
-```javascript
-// Crear archivo .env
-DB_HOST=localhost
-DB_USER=tu_usuario
-DB_PASSWORD=tu_contraseña
-DB_NAME=crud_nodejs_db
-```
-
-### Puerto
-El servidor está configurado para ejecutarse en el puerto 5000. Para cambiarlo, modifica la línea en `app.js`:
-```javascript
-app.listen(5000, ()=>{
-    console.log('Servidor funcionando en http://localhost:5000');
-});
-```
-
-## 🚨 Problemas Conocidos
-
-1. **Error en app.js línea 7**: `express(JSON)` debería ser `express.json()`
-2. **Error en edit.ejs línea 55**: Valor duplicado en el atributo `value` del select
-3. **Falta validación**: No hay validación de datos en el frontend ni backend
-4. **Seguridad**: No hay protección contra inyección SQL (aunque MySQL2 tiene cierta protección)
-
-## 🔮 Mejoras Sugeridas
-
-### Seguridad
-- [ ] Implementar validación de datos con librerías como Joi o express-validator
-- [ ] Agregar autenticación y autorización
-- [ ] Usar prepared statements para prevenir inyección SQL
-- [ ] Implementar rate limiting
-- [ ] Agregar HTTPS en producción
-
-### Funcionalidad
-- [ ] Implementar búsqueda y filtrado de usuarios
-- [ ] Agregar paginación para listas grandes
-- [ ] Implementar confirmación antes de eliminar
-- [ ] Agregar validación de formularios en el frontend
-- [ ] Implementar mensajes de éxito/error
-
-### Código
-- [ ] Agregar manejo de errores centralizado
-- [ ] Implementar logging
-- [ ] Separar lógica de negocio de las rutas
-- [ ] Agregar documentación de API
-- [ ] Implementar tests unitarios y de integración
-
-### Base de Datos
-- [ ] Agregar migraciones
-- [ ] Implementar conexión pool
-- [ ] Agregar índices para mejorar rendimiento
-- [ ] Considerar usar un ORM como Sequelize o TypeORM
-
-### DevOps
-- [ ] Agregar Docker para containerización
-- [ ] Implementar CI/CD
-- [ ] Agregar monitoreo y métricas
-- [ ] Configurar variables de entorno
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia ISC.
-
-## 👥 Contribuciones
-
-Las contribuciones son bienvenidas. Por favor:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📞 Soporte
-
-Si tienes preguntas o encuentras algún problema, por favor abre un issue en el repositorio.
+El proyecto permite crear, visualizar, editar y eliminar usuarios mediante una interfaz web simple, limpia y responsive.
 
 ---
 
-**Desarrollado con ❤️ usando Node.js y Express**
+# 📸 Vista del Proyecto
+
+![preview](https://via.placeholder.com/1200x600.png?text=CRUD+Node.js+Preview)
+
+---
+
+# 🌐 Demo Online
+
+🔗 https://crudchiquito.onrender.com
+
+---
+
+# ✨ Características
+
+- ✅ Crear usuarios
+- ✅ Listar usuarios
+- ✅ Editar usuarios
+- ✅ Eliminar usuarios
+- ✅ Gestión de roles
+- ✅ Interfaz responsive
+- ✅ Integración con PostgreSQL
+- ✅ Deploy en Render
+- ✅ Base de datos en Supabase
+
+---
+
+# 🛠️ Tecnologías Utilizadas
+
+## Backend
+
+- Node.js
+- Express.js
+- PostgreSQL
+- pg
+- EJS
+
+## Frontend
+
+- Bootstrap 5
+- Boxicons
+- HTML5
+- CSS3
+
+## Deployment
+
+- Render
+- Supabase
+
+---
+
+# 📂 Estructura del Proyecto
+
+```bash
+crudchiquito/
+│
+├── controllers/
+│   └── crud.js
+│
+├── database/
+│   └── db.js
+│
+├── views/
+│   ├── create.ejs
+│   ├── edit.ejs
+│   └── index.ejs
+│
+├── router.js
+├── app.js
+├── package.json
+└── README.md
+```
+---
+
+# ⚙️ Instalación
+**1. Clonar repositorio**
+```bash
+git clone https://github.com/alonsocuevas/crudchiquito.git
+```
+ **2. Entrar al proyecto**
+```bash
+cd crudchiquito
+```
+**3. Instalar dependencias**
+```bash
+npm install
+```
+---
+# 🔐 Variables de Entorno
+
+Crear archivo .env
+```bash
+DATABASE_URL=tu_string_de_conexion_postgresql
+```
+---
+# 🗄️ Base de Datos
+
+Tabla utilizada:
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100),
+    rol VARCHAR(50)
+);
+```
+---
+# ▶️ Ejecutar Proyecto
+**Desarrollo**
+```bash
+npx nodemon app.js
+```
+**Producción**
+```bash
+node app.js
+```
+---
+# 🌍 Acceso Local
+```bash
+http://localhost:5000
+```
+---
+# 📌 Endpoints
+|Metodo|Ruta|Descripcion|
+|-----|----|-----|
+|GET|/|Listar usuarios|
+|GET|/create|Formulario de accion|
+|POST|/save|Guardar usuario|
+|GET|/edit/:id|Formulario edicion|
+|POST|/update|Actualizar usuario|
+|GET|/delete/:id|Eliminar usuario|
+---
+# 🧠 Aprendizajes del Proyecto
+
+**Este proyecto permitió practicar:**
+
+- Arquitectura básica MVC
+- Manejo de rutas con Express
+- Integración con PostgreSQL
+- Uso de variables de entorno
+- Renderizado dinámico con EJS
+- Deploy Full Stack
+- Conexión remota a bases de datos
+- CRUD completo funcional
+---
+# 🚧 Mejoras Futuras
+- 🔍 Búsqueda de usuarios
+- 📄 Paginación
+- 🔐 Sistema de autenticación
+- ✅ Validación de formularios
+- ⚠️ Mensajes de error y éxito
+- 🎨 Mejoras UI/UX
+- 🌙 Dark Mode
+- 📱 Mejor experiencia móvil
+- 🧪 Testing
+---
+# 📦 Dependencias Principales
+```json
+{
+  "express": "^4.x",
+  "ejs": "^3.x",
+  "pg": "^8.x",
+  "dotenv": "^16.x",
+  "nodemon": "^2.x"
+}
+```
+---
+# 👨‍💻 Autor
+**Alonso Cuevas Pizarro**
+- GitHub: https://github.com/alonsocuevas
+---
+# 📄 Licencia
+
+Proyecto bajo licencia ISC.
+
+---
+
+# ⭐ Estado del Proyecto
+
+✅ Funcional
+✅ Deploy realizado
+✅ CRUD completo operativo
+
+---
