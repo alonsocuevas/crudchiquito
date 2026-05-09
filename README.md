@@ -1,20 +1,22 @@
 # 🚀 CRUD de Usuarios — Node.js + PostgreSQL
 
-Aplicación CRUD desarrollada con Node.js, Express y PostgreSQL para la gestión de usuarios y roles.
+**Aplicación CRUD desarrollada con Node.js, Express y PostgreSQL para la gestión de usuarios y roles.**
 
-El proyecto permite crear, visualizar, editar y eliminar usuarios mediante una interfaz web simple, limpia y responsive.
+**El proyecto permite crear, visualizar, editar y eliminar usuarios mediante una interfaz web simple, limpia y responsive.**
 
 ---
 
 # 📸 Vista del Proyecto
-
-![preview](https://via.placeholder.com/1200x600.png?text=CRUD+Node.js+Preview)
+![preview](img-readme/README1.png)
+![preview](img-readme/README2.png)
+![preview](img-readme/README3.png)
+![preview](img-readme/README4.png)
 
 ---
 
 # 🌐 Demo Online
 
-🔗 https://crudchiquito.onrender.com
+- 🔗 https://crudchiquito.onrender.com
 
 ---
 
